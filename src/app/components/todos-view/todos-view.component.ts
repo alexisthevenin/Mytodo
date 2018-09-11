@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription} from 'rxjs';
 import { TodoService } from './../../shared/services/todo.service';
 import { TodoInterface } from '../../shared/interfaces/todo-interface';
+
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 
 @Component({
@@ -10,6 +12,7 @@ import { TodoInterface } from '../../shared/interfaces/todo-interface';
   styleUrls: ['./todos-view.component.scss']
 })
 export class TodosViewComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
 
    /**
    * @var todos: TodoInterface[]
@@ -19,6 +22,21 @@ export class TodosViewComponent implements OnInit {
   public checkedStatus: boolean = false;
   
 
+/**
+ * Source des données pour le tableau Material
+ */
+public dataSource = new MatTableDataSource<TodoInterface>();
+
+/**
+ * Colonnes utilisées dans mat-table
+ */
+public displayedColumns = [
+  'title',
+  'begin',
+  'end',
+  'update',
+  'delete'
+]
 
   /**
    * Abonnement à un todo qui vient de TodoService!!
@@ -46,6 +64,7 @@ export class TodosViewComponent implements OnInit {
       } else {
         this.todos[index] = todo;
       }
+      this.dataSource.data = this.todos;
     }); 
   }
 
@@ -59,16 +78,23 @@ export class TodosViewComponent implements OnInit {
     this.todoService.getTodos().subscribe((todos) => {
       this.todos = todos;
       console.log('Il y a ' + this.todos.length + ' todos à afficher')
+
+      // On définit à ce moment la source de données
+      this.dataSource.data = this.todos;
+      this.dataSource.sort = this.sort;
     });
   }
 
   /**
    * Supprime un todo de la liste
    */
-  public delete(index:number): void {
+  public delete(todo: TodoInterface): void {
+    const index = this.todos.indexOf(todo);
     const _todo = this.todos[index]; // Récupère le todo
 
     this.todos.splice(index, 1); // Dépile l'élément du tableau
+
+    this.dataSource.data = this.todos;
     
     this.todoService.deleteTodo(_todo); // Appelle le service
   }
