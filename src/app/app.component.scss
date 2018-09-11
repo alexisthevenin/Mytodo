@@ -1,0 +1,17 @@
+table {
+    tbody {
+        background-color: rgba(195, 218, 238, 0.24);
+        td {
+            &.strikeOut {
+                text-decoration: line-through;
+            }
+        }
+    }
+}
+
+#titre {
+    font-family: 'bebas neue';
+    font-size: 3.5em;
+    margin-top: 75px;
+}
+
