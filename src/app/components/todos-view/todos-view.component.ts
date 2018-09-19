@@ -3,7 +3,12 @@ import { Subscription} from 'rxjs';
 import { TodoService } from './../../shared/services/todo.service';
 import { TodoInterface } from '../../shared/interfaces/todo-interface';
 
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { FormControl } from '@angular/forms';
+
+import { MatTableDataSource, MatSort, MatSelect, MatOption } from '@angular/material';
+
+import { TodoHelper } from '../../shared/helpers/todo-helper';
+import { MatColumns } from './../../shared/interfaces/mat-columns';
 
 
 @Component({
@@ -30,13 +35,43 @@ public dataSource = new MatTableDataSource<TodoInterface>();
 /**
  * Colonnes utilisées dans mat-table
  */
-public displayedColumns = [
+public columns = new FormControl();
+
+
+/**public displayedColumns: String[] = [
   'title',
   'begin',
   'end',
   'update',
   'delete'
+];
+*/
+
+/**
+ * Colonnes à afficher dans le mat-select
+ */
+public availableColumns: any[] = [
+  {value: 'begin', label: 'Du...'},
+  {value: 'end', label: 'Au...'}
+];
+
+/**
+ * Colonnes séléctionnées par défaut, pour que les boites soient cochées
+ */
+public selectedValue: String[] = [
+  'begin',
+  'end',
 ]
+
+/**
+ * Options réellement sélectionnées par l'utilisateur
+ */
+public selectedOptions: any;
+
+
+
+
+
 
   /**
    * Abonnement à un todo qui vient de TodoService!!
@@ -48,8 +83,18 @@ public displayedColumns = [
    */
 
 
+  /**
+   *  Instance de la classe TodoHelper
+   */
+  public helper: TodoHelper;
+
   constructor(private todoService: TodoService) { 
     this.todos = []; // Définit le tableau des todos à afficher
+
+    // Instancie de helper
+    this.helper = new TodoHelper();
+    this.selectedValue = this.helper.optionalColumnsToArray();
+
 
 
     
@@ -172,5 +217,15 @@ public checkUnCheckAll() {
     console.log('Modification du todo : ' + todo.id);
     this.todoService.sendTodo(todo);
   }
+
+
+
+
+
+  public changeView (event: any): void {
+    this.helper.setDisplayedColumns(this.selectedValue);
+  }
+
+
 
 }

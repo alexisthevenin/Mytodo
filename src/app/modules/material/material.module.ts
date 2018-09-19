@@ -8,7 +8,11 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatOptionModule,
+  MatSelectModule,
 
 } from '@angular/material';
 
@@ -21,7 +25,11 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
 
   ],
   declarations: [],
@@ -31,7 +39,11 @@ import {
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
   ]
 })
 export class MaterialModule { }
