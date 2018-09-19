@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hello
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
@@ -25,3 +26,21 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+# Mytodo
+To do list
+
+$Angular
+$: cd [devspace]
+$: git clone https://github.com/alexisthevenin/Mytodo
+$: cd [Mytodo]
+$: npm i @angular-cli@latest -g (if ever angular-cli is not already installed) 
+$: npm i
+$: ng serve
+
+Then go to http://localhost:4200
+
+
+Install dependencies:
+$: npm i 
+>>>>>>> 01f83a98508ea50a747e67ee933edc0aacc4de4a
